@@ -15,7 +15,10 @@ Rails.application.routes.draw do
   #   resources :products
 
   resources :movies
-  
+
+# Alternative solution to Homework - 1
+  # get 'ordered_title', to: 'movies#ordered_title', as: :ordered_title
+
   # Example resource route with options:
   #   resources :products do
   #     member do
