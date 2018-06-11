@@ -18,8 +18,6 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
 
-    @all_ratings = Movie.get_all_ratings
-
     if params[:sort] == "title"
       @movies = Movie.all.order(:title)
     elsif params[:sort] == "release_date"
@@ -27,6 +25,14 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+
+    @all_ratings = Movie.get_all_ratings
+    @checked_ratings = @all_ratings
+    if params[:ratings]
+      @checked_ratings = params[:ratings].keys
+      @movies = Movie.where(rating: @checked_ratings)
+    end
+
   end
 
   def new
