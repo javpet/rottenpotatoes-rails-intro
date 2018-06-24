@@ -39,6 +39,7 @@ class MoviesController < ApplicationController
 
     if @sorting_option
       session[:sort] = @sorting_option
+
       if @sorting_option == "title"
         @title_header = 'hilite' if params[:sort] == 'title'
         @movies = @movies.order(:title)
