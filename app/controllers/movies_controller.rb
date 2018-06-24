@@ -21,10 +21,20 @@ class MoviesController < ApplicationController
     @release_date_header = 'hilite' if params[:sort] == 'release_date'
 
     @all_ratings = Movie.get_all_ratings
-    @checked_ratings = @all_ratings
+
     if params[:ratings]
       @checked_ratings = params[:ratings].keys
+      session[:ratings] = @checked_ratings
       @movies = Movie.where(rating: @checked_ratings)
+    else
+      @checked_ratings = @all_ratings
+      if session[:ratings]
+        @checked_ratings = session[:ratings]
+        @movies = Movie.where(rating: @checked_ratings)
+      else
+        @movies = Movie.all.order(params[:sort])
+        @selected_ratings = @all_ratings
+      end
     end
 
   end
